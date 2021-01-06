@@ -9,20 +9,21 @@ from itertools import cycle
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 
 client = commands.Bot(command_prefix = ".", intents = intents)
-status = cycle(["bedwars with Scandlex", "Minecraft", "Anime SMP", "Hypixel", "with AcidicBlaster", "Skywars", "BlocksMC", "Competetive Cracked Bedwars"])
-status_ = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1"])
+status_a = cycle(["bedwars with Scandlex", "Minecraft", "Anime SMP", "Hypixel", "with AcidicBlaster", "Skywars", "BlocksMC", "Competetive Cracked Bedwars"])
+status_b = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1"])
 
+async def status():
+    while True:
+        await client.wait_until_ready()
+        await client.change_presence(status = discord.Status.idle, activity = discord.Game(next(status_a)))
+        await asyncio.sleep(10)
+        await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.watching, name =(next(status_b))))
+        await asyncio.sleep(10)
 
 @client.event
 async def on_ready():
     print("Winston is now Online.")
-
-@tasks.loop(seconds = 10)
-async def change_status():
-    await client.change_presence(status = discord.Status.idle, activity = discord.Game(next(status)))
-    await asyncio.sleep(10)
-    await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.watching, name =(next(status_))))
-    await asyncio.sleep(10)
+client.loop.create_task(status())
 
 @client.event
 async def on_command_error(ctx, error):
@@ -49,60 +50,6 @@ async def roll(ctx):
     number = random.choice(choices)
     await ctx.send(f"The number is {number}.")
 
-@client.command()
-@commands.has_permissions(manage_messages = True)
-async def clear(ctx, amount : int):
-    await ctx.channel.purge(limit = amount)
-    await ctx.send(f"{amount} message's have been cleared!")
-
-@clear.error
-async def clear_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please specify a amount of messages to delete.")
-    
-@client.command()
-@commands.has_permissions(kick_members = True, administrator = True)
-async def kick(ctx, member : discord.Member, *, reason = None):
-    await member.kick(reason = reason)
-    await ctx.send(f"{member} has been kicked for {reason}.")
-
-@kick.error
-async def kick_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please specify a user.")
-
-@client.command()
-@commands.has_permissions(ban_members = True, administrator = True)
-async def ban(ctx, member: discord.Member, *, reason = None):
-    await member.ban(reason = reason)
-    await ctx.send(f"{member} has been banned for {reason}.")
-
-@ban.error
-async def ban_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please specify a user.")
-
-@client.command()
-@commands.has_permissions(ban_members = True, administrator = True)
-async def unban(ctx, *, member):
-    banned_users = await ctx.guild.bans()
-    member_name, member_discriminator = member.split("#")
-
-    for ban_entry in banned_users:
-        user = ban_entry.user
-        
-        if (user.name, user.discriminator) == (member_name, member_discriminator):
-            await ctx.guild.unban(user)
-            await ctx.send(f"{member_name}#{member_discriminator} has been unbanned.")
-            return
-        else:
-            await ctx.send("User is not banned.")
-
-@unban.error
-async def unban_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please specify a user.")
-
 #Cogs 
 
 @client.command()
@@ -128,4 +75,3 @@ async def spam_error(ctx, error):
     
 
 client.run("NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.HUyrILSMzZVY1IDIqHetw8ecj-w")
-
