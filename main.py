@@ -64,7 +64,10 @@ async def roll(ctx):
 
 #Loading Cogs
 
-client.load_extension("cogs.Moderator")    
+for filename in os.listdir("./cogs"):
+    if filename.endswith(".py"):
+        client.load_extension(f"cogs.{filename[:-3]}")
+        print(f"{filename} has loaded.")
 
 client.run("NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.HUyrILSMzZVY1IDIqHetw8ecj-w")
 
