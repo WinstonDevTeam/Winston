@@ -6,7 +6,7 @@ class Moderator(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.cog.listener()
+    @commands.command()
     @commands.has_permissions(manage_messages = True)
     async def clear(self, ctx, amount : int):
         await ctx.channel.purge(limit = amount)
@@ -17,7 +17,7 @@ class Moderator(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a amount of messages to delete.")
 
-    @commands.cog.listener()
+    @commands.command()
     @commands.has_permissions(kick_members = True)
     async def kick(self, ctx, member : discord.Member, *, reason = None):
         await member.kick(reason = reason)
@@ -28,7 +28,7 @@ class Moderator(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a user.")
 
-    @commands.cog.listener() 
+    @commands.command()
     @commands.has_permissions(ban_members = True)
     async def ban(ctx, member: discord.Member, *, reason = None):
         await member.ban(reason = reason)
@@ -39,7 +39,7 @@ class Moderator(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Please specify a user.")
 
-    @commands.cog.listener()
+    @commands.command()
     @commands.has_permissions(ban_members = True)
     async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
