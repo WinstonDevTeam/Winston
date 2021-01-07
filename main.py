@@ -4,7 +4,7 @@ import os
 import asyncio
 
 from discord.ext import commands, tasks
-from itertools import cycle\
+from itertools import cycle
 
 #Intents
 
@@ -62,7 +62,7 @@ async def roll(ctx):
     number = random.choice(choices)
     await ctx.send(f"The number is {number}.")
 
-#Loading Cogs
+#Import cog
 
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
