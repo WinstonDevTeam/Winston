@@ -12,7 +12,7 @@ intents = discord.Intents(messages = True, guilds = True, reactions = True, memb
 client = commands.Bot(command_prefix = ".", intents = intents)
 
 status_a = cycle(["bedwars with Scandlex", "Minecraft", "Anime SMP", "Hypixel", "with AcidicBlaster", "Skywars", "BlocksMC", "Competetive Cracked Bedwars"])
-status_b = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1"])
+status_b = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1", "Scandlex"])
 
 #Changing Statuses
 
