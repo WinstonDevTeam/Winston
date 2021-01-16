@@ -4,7 +4,7 @@ import os
 import asyncio
 
 from discord.ext import commands, tasks
-from itertools import cycle
+from itertools import cycle\
 
 #Intents
 
@@ -12,7 +12,7 @@ intents = discord.Intents(messages = True, guilds = True, reactions = True, memb
 client = commands.Bot(command_prefix = ".", intents = intents)
 
 status_a = cycle(["bedwars with Scandlex", "Minecraft", "Anime SMP", "Hypixel", "with AcidicBlaster", "Skywars", "BlocksMC", "Competetive Cracked Bedwars"])
-status_b = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1", "Scandlex"])
+status_b = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1"])
 
 #Changing Statuses
 
@@ -35,8 +35,6 @@ client.loop.create_task(status())
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
        await ctx.send("Invalid Command. Please try again.")
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send("You don't have permission to run this command.") 
 
 #Logging
 
@@ -70,4 +68,3 @@ for filename in os.listdir("./cogs"):
         print(f"{filename} has loaded.")
 
 client.run("NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.HUyrILSMzZVY1IDIqHetw8ecj-w")
-
