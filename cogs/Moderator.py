@@ -56,9 +56,9 @@ class Moderator(commands.Cog):
         await ctx.guild.ban(member, reason = reason)
         
         if reason:
-            await ctx.send(f"**{member}** has been banned for **{reason}**.")
+            await ctx.send(f"**{member_str}** has been banned for **{reason}**.")
         else:
-            await ctx.send(f"**{member}** has been banned.")
+            await ctx.send(f"**{member_str}** has been banned.")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members = True)
