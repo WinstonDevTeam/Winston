@@ -4,7 +4,7 @@ import os
 import asyncio
 
 from discord.ext import commands, tasks
-from itertools import cycle\
+from itertools import cycle
 
 #Intents
 
@@ -34,17 +34,17 @@ client.loop.create_task(status())
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-       await ctx.send("Invalid Command. Please try again.")
+       await ctx.send("wadre")
 
 #Logging
 
 @client.event
-async def on_member_join(ctx, member):
+async def on_guild_join(ctx, member):
     log_channel = client.get_channel("796677487823945728")
     await log_channel.send("{member} has joined a server.")
 
 @client.event
-async def on_member_remove(ctx, member):
+async def on_guild_remove(ctx, member):
     log_channel = client.get_channel("796677487823945728")
     await log_channel.send("{member} has joined a server.")
 
@@ -68,3 +68,4 @@ for filename in os.listdir("./cogs"):
         print(f"{filename} has loaded.")
 
 client.run("NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.HUyrILSMzZVY1IDIqHetw8ecj-w")
+
