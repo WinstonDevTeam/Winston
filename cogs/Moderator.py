@@ -32,7 +32,7 @@ class Moderator(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(ban_members = True)
-    async def ban(ctx, member: typing.Union[discord.Member, int], *, reason = None):
+    async def ban(self, ctx, member: typing.Union[discord.Member, int], *, reason = None):
         if member == None or reason == None:
             await ctx.send("Insufficient arguments!")
         if not isinstance(member, int):
@@ -63,6 +63,7 @@ class Moderator(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members = True)
+    @commands.guild_only
     async def unban(self, ctx, member : typing.Union[discord.Member, int, str], reason = None):
     
         if isinstance(member, int):
