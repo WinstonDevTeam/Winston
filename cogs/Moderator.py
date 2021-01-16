@@ -1,7 +1,7 @@
 import discord
 import typing
 from discord.ext import commands
-from discord.ext import utils
+from discord import utils
 
 class Moderator(commands.Cog):
 
