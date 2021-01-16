@@ -1,5 +1,7 @@
 import discord
+import typing
 from discord.ext import commands
+from discord.ext import utils
 
 class Moderator(commands.Cog):
 
@@ -7,58 +9,84 @@ class Moderator(commands.Cog):
         self.client = client
 
     @commands.command()
-    @commands.has_permissions(manage_messages = True)
+    @commands.has_guild_permissions(manage_messages = True)
     async def clear(self, ctx, amount : int):
+        if amount == None:
+            await ctx.send("Please specify a amount of messages to be deleted!")
         await ctx.channel.purge(limit = amount)
-        await ctx.send(f"{amount} message's have been cleared!")
-
-    @clear.error
-    async def clear_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Please specify a amount of messages to delete.")
+        await ctx.send(f"{amount} message's have been cleared!", delete_after = 5)
 
     @commands.command()
-    @commands.has_permissions(kick_members = True)
+    @commands.has_guild_permissions(kick_members = True)
     async def kick(self, ctx, member : discord.Member, *, reason = None):
-        await member.kick(reason = reason)
-        await ctx.send(f"{member} has been kicked for {reason}.")
-
-    @kick.error
-    async def kick_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Please specify a user.")
-
-    @commands.command()
-    @commands.has_permissions(ban_members = True)
-    async def ban(ctx, member: discord.Member, *, reason = None):
-        await member.ban(reason = reason)
-        await ctx.send(f"{member} has been banned for {reason}.")
-
-    @ban.error
-    async def ban_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Please specify a user.")
+        if member == None or reason == None:
+            await ctx.send("Insufficient arguments!")
+        elif ctx.author.top_role.position <= member.top_role.position:
+            await ctx.send("You cannot kick this user because their role is higher than or equal to yours!")
+        else:
+            await member.kick(reason = reason)
+        if reason:
+            await ctx.send(f"**{member}** has been kicked for **{reason}**.")
+        else:
+            await ctx.send("**{member}** has been kicked.")
 
     @commands.command()
-    @commands.has_permissions(ban_members = True)
-    async def unban(self, ctx, *, member):
-        banned_users = await ctx.guild.bans()
-        member_name, member_discriminator = member.split("#")
-
-        for ban_entry in banned_users:
-            user = ban_entry.user
-        
-            if (user.name, user.discriminator) == (member_name, member_discriminator):
-                await ctx.guild.unban(user)
-                await ctx.send(f"{member_name}#{member_discriminator} has been unbanned.")
+    @commands.has_guild_permissions(ban_members = True)
+    async def ban(ctx, member: typing.Union[discord.Member, int], *, reason = None):
+        if member == None or reason == None:
+            await ctx.send("Insufficient arguments!")
+        if not isinstance(member, int):
+            if ctx.author.top_role.position <= member.top_role.position and ctx.guild.owner.id != ctx.author.id:
+                await ctx.send("You cannot ban this user because their role is higher than or equal to yours!"
+                )
                 return
-            else:
-                await ctx.send("User is not banned.")
+            
+        if isinstance(member, int):
+            member_str = f"<@{member}>"
+            member = discord.Object(id = member)
 
-    @unban.error
-    async def unban_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Please specify a user.")
+        else:
+            member_str = member
+
+        try:
+            await member.send(f"You have been banned from **{ctx.guild}** by **{ctx.author}**\nReason: **{reason}**"
+            )
+        except Exception:
+            pass
+        
+        await member.ban(reason = reason)
+        
+        if reason:
+            await ctx.send(f"**{member}** has been banned for **{reason}**.")
+        else:
+            await ctx.send(f"**{member}** has been banned.")
+
+    @commands.command()
+    @commands.has_permissions(ban_members = True)
+    async def unban(self, ctx, member : typing.Union[discord.Member, int, str], reason = None):
+    
+        if isinstance(member, int):
+            member_str = f"<@{member}>"
+            member = discord.Object(id = member)
+        else:
+            member_str = member
+
+        if isinstance(member,str):
+            banned_members = await ctx.guild.bans()
+            member_name, member_tag = member.split("#")
+
+            banned_member = utils.get(banned_members,member_name = member_name, member_discriminator = member_tag)
+
+            if banned_member is None:
+                await ctx.send("This member is not banned!")
+                return
+            await ctx.guild.unban(banned_member.user)
+
+        else:
+            await ctx.guild.unban(member.user)
+
+        await ctx.send(f"Unbanned **{member_str}**")
+   
 
 
 def setup(client):
