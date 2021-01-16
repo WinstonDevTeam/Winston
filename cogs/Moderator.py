@@ -53,7 +53,7 @@ class Moderator(commands.Cog):
         except Exception:
             pass
         
-        await member.ban(reason = reason)
+        await member.ban(member, reason = reason)
         
         if reason:
             await ctx.send(f"**{member}** has been banned for **{reason}**.")
@@ -71,7 +71,7 @@ class Moderator(commands.Cog):
         else:
             member_str = member
 
-        if isinstance(member,str):
+        if isinstance(member, str):
             banned_members = await ctx.guild.bans()
             member_name, member_tag = member.split("#")
 
@@ -83,7 +83,7 @@ class Moderator(commands.Cog):
             await ctx.guild.unban(banned_member.user)
 
         else:
-            await ctx.guild.unban(member.user)
+            await ctx.guild.unban(member)
 
         await ctx.send(f"Unbanned **{member_str}**")
    
