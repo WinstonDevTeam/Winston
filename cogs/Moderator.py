@@ -53,7 +53,7 @@ class Moderator(commands.Cog):
         except Exception:
             pass
         
-        await member.ban(member, reason = reason)
+        await ctx.guild.ban(member, reason = reason)
         
         if reason:
             await ctx.send(f"**{member}** has been banned for **{reason}**.")
