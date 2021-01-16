@@ -4,7 +4,6 @@ from discord.ext import commands
 from discord import utils
 
 class Moderator(commands.Cog):
-
     def __init__(self, client):
         self.client = client
 
@@ -62,9 +61,9 @@ class Moderator(commands.Cog):
             await ctx.send(f"**{member}** has been banned.")
 
     @commands.command()
-    @commands.has_permissions(ban_members = True)
-    @commands.guild_only
-    async def unban(self, ctx, member : typing.Union[discord.Member, int, str], reason = None):
+    @commands.has_guild_permissions(ban_members = True)
+    @commands.guild_only()
+    async def unban(self, ctx, member : typing.Union[discord.Member, int, str], *, reason = None):
     
         if isinstance(member, int):
             member_str = f"<@{member}>"
