@@ -25,7 +25,7 @@ async def status():
         await asyncio.sleep(10)
         await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.watching, name =(next(status_b))))
         await asyncio.sleep(10)
-        await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.listening, name = "to .help"))
+        await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.listening, name = ".help"))
         await asyncio.sleep(10)
 
 @client.event
