@@ -68,6 +68,7 @@ async def roll(ctx):
     choices = [1, 2, 3 , 4, 5, 6]
     number = random.choice(choices)
     embed = discord.Embed(name = "Dice", description = f"You have rolled {number}", color = discord.Color.dark_gray())
+    await ctx.send(embed = embed)
 
 @client.command(name = "userinfo", aliases = ["whois"])
 async def user(ctx, member : discord.Member):
