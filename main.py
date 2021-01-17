@@ -63,7 +63,7 @@ async def roll(ctx):
 
 @client.command(name = "userinfo", aliases = ["whois"])
 async def user(ctx, member : discord.Member):
-    embed = discord.Embed(name = member.name, description = member.mention, color = discord.Color.dark_gray)
+    embed = discord.Embed(name = member.name, description = member.mention, color = discord.Color.dark_gray())
     embed.add_field(name = "ID:", value = member.id, inline = False)
     embed.add_field(name = "Joined Discord:", value = member.created_at.strftime("%a, %d %b %Y %I:%M %p"), inline = False)
     embed.add_field(name = "Joined Server:", value = member.joined_at.strftime("%a, %d %b %Y %I:%M %p"), inline = False)
