@@ -1,3 +1,4 @@
+from re import M, S
 import discord
 import random
 import os
@@ -59,6 +60,20 @@ async def roll(ctx):
     choices = [1, 2, 3 , 4, 5, 6]
     number = random.choice(choices)
     await ctx.send(f"The number is {number}.")
+
+@client.command(aliases = ["whois"])
+async def user(ctx, member : discord.Member):
+    embed = discord.Embed(name = member.name, description = member.mention, color = discord.Color.dark_gray)
+    fields = [("ID:", member.id, False)
+              ("Joined Discord:", member.created_at.strftime("%d/%m/%Y"), True)
+              ("Joined Server:", member.joined_at.strftime("%d/%m/%Y"), True)
+              ("Bot:", member.bot, True)]
+    
+    for name, value, inline in fields:
+        embed.add_field(name = name, value = value, inline = inline)
+    embed.set_thumbnail(url = member.avatar_url)
+    embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
+
 
 #Import cog
 
