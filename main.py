@@ -73,6 +73,7 @@ async def user(ctx, member : discord.Member):
         embed.add_field(name = name, value = value, inline = inline)
     embed.set_thumbnail(url = member.avatar_url)
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
+    await ctx.send(embed = embed)
 
 
 #Import cog
