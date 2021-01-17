@@ -61,16 +61,14 @@ async def roll(ctx):
     number = random.choice(choices)
     await ctx.send(f"The number is {number}.")
 
-@client.command(aliases = ["whois"])
+@client.command(name = "userinfo", aliases = ["whois"])
 async def user(ctx, member : discord.Member):
     embed = discord.Embed(name = member.name, description = member.mention, color = discord.Color.dark_gray)
-    fields = [("ID:", member.id, False),
-              ("Joined Discord:", member.created_at.strftime("%d/%m/%Y"), True),
-              ("Joined Server:", member.joined_at.strftime("%d/%m/%Y"), True),
-              ("Bot:", member.bot, True)]
-    
-    for name, value, inline in fields:
-        embed.add_field(name = name, value = value, inline = inline)
+    embed.add_field(name = "ID:", value = member.id, inline = False)
+    embed.add_field(name = "Joined Discord:", value = member.created_at.strftime("%a, %d %b %Y %I:%M %p"), inline = False)
+    embed.add_field(name = "Joined Server:", value = member.joined_at.strftime("%a, %d %b %Y %I:%M %p"), inline = False)
+    embed.add_field(name = "Bot:", value = member.bot, inline = False)
+
     embed.set_thumbnail(url = member.avatar_url)
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
     await ctx.send(embed = embed)
