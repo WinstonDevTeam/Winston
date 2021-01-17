@@ -3,6 +3,7 @@ import discord
 import random
 import os
 import asyncio
+from discord.enums import ActivityType
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -13,7 +14,7 @@ intents = discord.Intents(messages = True, guilds = True, reactions = True, memb
 client = commands.Bot(command_prefix = ".", intents = intents)
 
 status_a = cycle(["bedwars with Scandlex", "Minecraft", "Anime SMP", "Hypixel", "with AcidicBlaster", "Skywars", "BlocksMC", "Competetive Cracked Bedwars"])
-status_b = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1"])
+status_b = cycle(["Hentai", "Anime", "YouTube", "AcidicBlaster", "RayVene", "F1", f"over {len(client.guilds)} servers"])
 
 #Changing Statuses
 
@@ -23,6 +24,8 @@ async def status():
         await client.change_presence(status = discord.Status.idle, activity = discord.Game(next(status_a)))
         await asyncio.sleep(10)
         await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.watching, name =(next(status_b))))
+        await asyncio.sleep(10)
+        await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.listening, name = "to .help"))
         await asyncio.sleep(10)
 
 @client.event
@@ -36,6 +39,11 @@ client.loop.create_task(status())
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
        await ctx.send("wadre")
+
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You do not have permission to run this command!")
 
 #Logging
 
@@ -59,7 +67,7 @@ async def ping(ctx):
 async def roll(ctx):
     choices = [1, 2, 3 , 4, 5, 6]
     number = random.choice(choices)
-    await ctx.send(f"The number is {number}.")
+    embed = discord.Embed(name = "Dice", description = f"You have rolled {number}", color = discord.Color.dark_gray())
 
 @client.command(name = "userinfo", aliases = ["whois"])
 async def user(ctx, member : discord.Member):
