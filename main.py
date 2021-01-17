@@ -64,9 +64,9 @@ async def roll(ctx):
 @client.command(aliases = ["whois"])
 async def user(ctx, member : discord.Member):
     embed = discord.Embed(name = member.name, description = member.mention, color = discord.Color.dark_gray)
-    fields = [("ID:", member.id, False)
-              ("Joined Discord:", member.created_at.strftime("%d/%m/%Y"), True)
-              ("Joined Server:", member.joined_at.strftime("%d/%m/%Y"), True)
+    fields = [("ID:", member.id, False),
+              ("Joined Discord:", member.created_at.strftime("%d/%m/%Y"), True),
+              ("Joined Server:", member.joined_at.strftime("%d/%m/%Y"), True),
               ("Bot:", member.bot, True)]
     
     for name, value, inline in fields:
