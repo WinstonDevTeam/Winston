@@ -14,7 +14,7 @@ intents = discord.Intents(messages = True, guilds = True, reactions = True, memb
 client = commands.Bot(command_prefix = "/", intents = intents)
 
 status_a = cycle(["bedwars with Scandlex", "Minecraft", "Survival", "Skywars",])
-status_b = cycle(["Anime", "YouTube", "F1", f"over {len(client.fetch_guilds())} servers"])
+status_b = cycle(["Anime", "YouTube", "F1", f"over {(client.fetch_guilds())} servers"])
 
 #Changing Statuses
 
