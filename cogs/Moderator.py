@@ -1,4 +1,5 @@
 import discord
+import asyncio
 import typing
 from discord.ext import commands
 from discord import utils
@@ -7,15 +8,15 @@ class Moderator(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(name = "clear")
     @commands.has_guild_permissions(manage_messages = True)
     async def clear(self, ctx, amount : int):
         if amount == None:
             await ctx.send("Please specify a amount of messages to be deleted!")
         await ctx.channel.purge(limit = amount)
-        await ctx.send(f"{amount} message's have been cleared!", delete_after = 5)
+        await ctx.send(f"{amount} message's have been cleared!", delete_after = 3)
 
-    @commands.command()
+    @commands.command(name = "kick")
     @commands.has_guild_permissions(kick_members = True)
     async def kick(self, ctx, member : discord.Member, *, reason = None):
         if member == None or reason == None:
@@ -29,7 +30,7 @@ class Moderator(commands.Cog):
         else:
             await ctx.send("**{member}** has been kicked.")
 
-    @commands.command()
+    @commands.command(name = "ban")
     @commands.has_guild_permissions(ban_members = True)
     async def ban(self, ctx, member: typing.Union[discord.Member, int], *, reason = None):
         if member == None or reason == None:
@@ -60,7 +61,7 @@ class Moderator(commands.Cog):
         else:
             await ctx.send(f"**{member_str}** has been banned.")
 
-    @commands.command()
+    @commands.command(name = "unban")
     @commands.has_guild_permissions(ban_members = True)
     @commands.guild_only()
     async def unban(self, ctx, member : typing.Union[discord.Member, int, str], *, reason = None):
