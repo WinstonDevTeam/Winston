@@ -79,7 +79,7 @@ async def avatar(ctx, member : discord.Member = None):
 
 @client.command(name = "serverinfo", aliases = ["guildinfo"])
 async def serverinfo(ctx):
-    embed = discord.Embed(title = f"{ctx.guild.name} Server Information", color = discord.color.dark_gray(), timestamp = ctx.message.created_at)
+    embed = discord.Embed(title = f"{ctx.guild.name} Server Information", color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
     embed.add_field(name = "Owner:", value = ctx.guild.owner, inline = True)
     embed.add_field(name = "Server ID:", value = ctx.guild.id, inline = True)
     embed.add_field(name = "Region:", value = ctx.guild.region, inline = True)
