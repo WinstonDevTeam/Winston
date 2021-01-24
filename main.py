@@ -51,7 +51,7 @@ async def on_guild_remove(ctx, member):
 
 @client.command(name = "ping")
 async def ping(ctx):
-    embed = discord.Embed(name = "Ping", description = f"The Latency is {round(client.latency * 1000)}ms!", color = discord.Color.dark_gray)
+    embed = discord.Embed(name = "Ping", description = f"The Latency is {round(client.latency * 1000)}ms!", color = discord.Color.dark_gray())
     await ctx.send(embed = embed)
 
 @client.command(name = "userinfo", aliases = ["whois"])
@@ -84,7 +84,6 @@ async def serverinfo(ctx):
     embed.add_field(name = "Server ID:", value = ctx.guild.id, inline = True)
     embed.add_field(name = "Region:", value = ctx.guild.region, inline = True)
     embed.add_field(name = "Total Members:", value = ctx.guild.member_count, inline = True)
-    embed.add_field(name = "Total Roles:", value = ctx.guild.role_count, inline = True)
     
     embed.set_thumbnail(url = ctx.guild.icon_url)
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
