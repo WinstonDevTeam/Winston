@@ -72,18 +72,17 @@ async def user(ctx, *, member : discord.Member = None):
 @client.command(name = "avatar", aliases = ["av"])
 async def avatar(ctx, member : discord.Member = None):
     member = ctx.author if not member else member
-    embed = discord.Embed(name = member.name, color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
+    embed = discord.Embed(name = f"{member}", color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
     embed.set_image(url = member.avatar_url)
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
     await ctx.send(embed = embed)
 
 @client.command(name = "serverinfo", aliases = ["guildinfo"])
 async def serverinfo(ctx):
-    embed = discord.Embed(title = f"{ctx.guild.name} Server Information", color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
+    embed = discord.Embed(title = f"{ctx.guild.name} Server Information", description = ctx.guild.description, color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
     embed.add_field(name = "Owner:", value = ctx.guild.owner, inline = True)
     embed.add_field(name = "Server ID:", value = ctx.guild.id, inline = True)
     embed.add_field(name = "Region:", value = ctx.guild.region, inline = True)
-    embed.add_field(name = "Created on:", value = ctx.guild.created_at.strftime("%a, %d %b %Y %I:%M %p"), inline = True)
     embed.add_field(name = "Total Members:", value = ctx.guild.member_count, inline = True)
     embed.add_field(name = "Total Roles:", value = ctx.guild.role_count, inline = True)
     
@@ -91,9 +90,6 @@ async def serverinfo(ctx):
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
     await ctx.send(embed = embed)
     
-
-
-
 #Import cog
 
 for filename in os.listdir("./cogs"):
