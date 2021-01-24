@@ -101,4 +101,4 @@ for filename in os.listdir("./cogs"):
         client.load_extension(f"cogs.{filename[:-3]}")
         print(f"{filename} has loaded.")
 
-client.run(BOT_TOKEN)
+client.run("NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.G-kNm4-KVo9b-Z9alw1OjeNKeD4")
