@@ -72,7 +72,7 @@ async def user(ctx, *, member : discord.Member = None):
 @client.command(name = "avatar", aliases = ["av"])
 async def avatar(ctx, member : discord.Member = None):
     member = ctx.author if not member else member
-    embed = discord.Embed(name = f"{member}", color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
+    embed = discord.Embed(title = f"{member}", color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
     embed.set_image(url = member.avatar_url)
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
     await ctx.send(embed = embed)
