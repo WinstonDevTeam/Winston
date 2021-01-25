@@ -18,8 +18,8 @@ class Fun(commands.Cog):
         embed = discord.Embed(name = "Dice", description = f"You have rolled {number}", color = discord.Color.dark_gray())
         await ctx.send(embed = embed)
 
-    @commands.command(name = "meme", subreddit = "dankmemes")
-    async def meme(self, ctx):
+    @commands.command(name = "meme")
+    async def meme(self, ctx, subreddit = "dankmemes"):
         subreddit = reddit.subreddit("formuladank", "dankmemes", "titanfolk", "animememes", "shitpostcrusaders", "196", "cricketshitposts")
         all_subs = []
 
