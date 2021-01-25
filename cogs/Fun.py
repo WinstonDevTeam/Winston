@@ -19,7 +19,7 @@ class Fun(commands.Cog):
         await ctx.send(embed = embed)
 
     @commands.command(name = "meme")
-    async def meme(self, ctx, subreddit = "dankmemes"):
+    async def meme(self, ctx, subsred = "dankmemes"):
         subreddit = reddit.subreddit("formuladank", "dankmemes", "titanfolk", "animememes", "shitpostcrusaders", "196", "cricketshitposts")
         all_subs = []
 
