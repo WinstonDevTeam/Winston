@@ -20,7 +20,7 @@ class Fun(commands.Cog):
 
     @commands.command(name = "meme")
     async def meme(self, ctx, subsred = "dankmemes"):
-        subreddit = reddit.subreddit("formuladank", "dankmemes", "titanfolk", "animememes", "shitpostcrusaders", "196", "cricketshitposts")
+        subreddit = reddit.subreddit(subsred)
         all_subs = []
 
         top = subreddit.top(limit = 50)
