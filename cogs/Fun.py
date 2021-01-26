@@ -29,11 +29,9 @@ class Fun(commands.Cog):
             all_subs.append(submission)
 
         choice_sub = random.choice(all_subs)
-        
-        name = choice_sub.title
         url = choice_sub.url
 
-        embed = discord.Embed(name = f"{name}")
+        embed = discord.Embed(title = f"{choice_sub.title}")
         embed.set_image(url = url)
         embed.set_footer(text = f"Taken from {subsred}")
         await ctx.send(embed = embed)
