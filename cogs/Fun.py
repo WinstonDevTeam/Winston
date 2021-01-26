@@ -33,9 +33,9 @@ class Fun(commands.Cog):
         name = choice_sub.title
         url = choice_sub.url
 
-        embed = discord.Embed(name = name)
+        embed = discord.Embed(name = f"{name}")
         embed.set_image(url = url)
-
+        embed.set_footer(text = f"Taken from {subsred}")
         await ctx.send(embed = embed)
 
 
