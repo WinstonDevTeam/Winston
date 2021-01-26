@@ -4,7 +4,7 @@ import random
 import os
 import asyncio
 from discord.enums import ActivityType
-import praw
+import Praw
 
 from discord.ext import commands, tasks
 from itertools import cycle
@@ -14,8 +14,11 @@ from itertools import cycle
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = "/", intents = intents)
 
+#Status Loop
+
+server_count = len(client.guilds)
 status_a = cycle(["bedwars with Scandlex", "Minecraft", "Survival", "Skywars",])
-status_b = cycle(["Anime", "YouTube", "F1", f"over {(client.fetch_guilds())} servers"])
+status_b = cycle(["Anime", "YouTube", "F1", f"over {server_count} servers"])
 
 #Changing Statuses
 
@@ -26,7 +29,7 @@ async def status():
         await asyncio.sleep(10)
         await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.watching, name =(next(status_b))))
         await asyncio.sleep(10)
-        await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.listening, name = ".help"))
+        await client.change_presence(status = discord.Status.idle, activity = discord.Activity(type = discord.ActivityType.listening, name = "/help"))
         await asyncio.sleep(10)
 
 @client.event
