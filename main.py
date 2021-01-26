@@ -4,7 +4,7 @@ import random
 import os
 import asyncio
 from discord.enums import ActivityType
-import Praw
+import praw
 
 from discord.ext import commands, tasks
 from itertools import cycle
