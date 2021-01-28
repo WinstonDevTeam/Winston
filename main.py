@@ -97,7 +97,6 @@ async def serverinfo(ctx):
 async def invite(ctx):
     embed = discord.Embed(name = "Click here to invite Winston!", color = discord.Color.dark_gray(), url = "https://discord.com/api/oauth2/authorize?client_id=792671490151677962&permissions=1006108150&scope=bot")
     await ctx.send(embed = embed)
-    await user.send("Thank you for inviting Winston!\nIf you have any problems, please ask in the support server https://discord.gg/Cy8UA5va")
 
 @client.command(name = "support")
 async def support(ctx):
