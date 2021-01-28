@@ -49,7 +49,7 @@ async def on_guild_join(ctx, guild):
 @client.event
 async def on_guild_remove(ctx, guild):
     log_channel = client.get_channel("796677487823945728")
-    await log_channel.send(f"Winston left {guild}./nOwner: {ctx.guild.owner}")
+    await log_channel.send(f"Winston left {guild}./nOwner: {guild.owner}")
 
 #Commands
 
@@ -95,13 +95,13 @@ async def serverinfo(ctx):
 
 @client.command(name = "invite", aliases = ["inv"])
 async def invite(ctx):
-    embed = discord.Embed(name = "Invite", description = "Click here to invite Winston!", color = discord.Color.dark_gray(), url = "https://discord.com/api/oauth2/authorize?client_id=792671490151677962&permissions=1006108150&scope=bot")
+    embed = discord.Embed(name = "Click here to invite Winston!", color = discord.Color.dark_gray(), url = "https://discord.com/api/oauth2/authorize?client_id=792671490151677962&permissions=1006108150&scope=bot")
     await ctx.send(embed = embed)
-    await user.send("Thank you for inviting Winston!/nIf you have any problems, please ask in the support server https://discord.gg/Cy8UA5va")
+    await user.send("Thank you for inviting Winston!\nIf you have any problems, please ask in the support server https://discord.gg/Cy8UA5va")
 
 @client.command(name = "support")
 async def support(ctx):
-    await ctx.send("Support Server:/nhttps://discord.gg/Cy8UA5va")
+    await ctx.send("Support Server:\nhttps://discord.gg/Cy8UA5va")
     
 #Import cog
 
