@@ -46,7 +46,7 @@ class Fun(commands.Cog):
             await channel.send("Correct Syntax: [Choice 1] or [Choice 2]")
             return
 
-        embed = discord.Embed(title = " Poll", description = txt , color = discord.Color.dark_dray())
+        embed = discord.Embed(title = " Poll", description = txt , color = discord.Color.dark_gray())
         message = await channel.send(embed = embed)
         await message.add_reaction("✅")
         await message.add_reaction("❎")
