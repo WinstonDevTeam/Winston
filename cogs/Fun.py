@@ -44,8 +44,9 @@ class Fun(commands.Cog):
             txt = f"React with ✅ for {op1} and ❎ for {op2}"
         except:
             await channel.send("Correct Syntax: [Choice 1] or [Choice 2]")
+            return
 
-        embed = discord.Embed(title = " Poll", description = "txt", color = discord.Color.dark_dray())
+        embed = discord.Embed(title = " Poll", description = txt , color = discord.Color.dark_dray())
         message = await ctx.send(embed = embed)
         await message.add_reaction("✅")
         await message.add_reaction("❎")
