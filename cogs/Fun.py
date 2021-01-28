@@ -47,7 +47,7 @@ class Fun(commands.Cog):
             return
 
         embed = discord.Embed(title = " Poll", description = txt , color = discord.Color.dark_dray())
-        message = await ctx.send(embed = embed)
+        message = await channel.send(embed = embed)
         await message.add_reaction("✅")
         await message.add_reaction("❎")
         await ctx.message.delete()
