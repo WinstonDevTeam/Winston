@@ -19,7 +19,7 @@ class Fun(commands.Cog):
         await ctx.send(embed = embed)
 
     @commands.command(name = "meme")
-    async def meme(self, ctx, subsred = "dankmemes"):
+    async def meme(self, ctx, *, subsred = "dankmemes"):
         subreddit = reddit.subreddit(subsred)
         all_subs = []
 
@@ -31,11 +31,28 @@ class Fun(commands.Cog):
         choice_sub = random.choice(all_subs)
         url = choice_sub.url
 
-        embed = discord.Embed(title = f"{choice_sub.title}")
+        if subsred == "hentai" or "porn":
+            await ctx.send("These subreddits are blacklisted as of now!")
+
+        embed = discord.Embed(title = f"{choice_sub.title}", color = discord.Color.dark_gray())
         embed.set_image(url = url)
         embed.set_footer(text = f"Taken from {subsred}")
         await ctx.send(embed = embed)
 
+        @commands.command(name = "poll")
+        async def poll(self, ctx, *, msg):
+            channel = ctx.channel
+            try:
+                op1, op2 = msg.split("or")
+                txt = f"React with ✅ for {op1} and ❎ for {op2}"
+            except:
+                await channel.send("Correct Syntax: [Choice 1] or [Choice 2]")
+
+            embed = discord.Embed(title = " Poll", description = "txt", color = discord.Color.dark_dray())
+            message = await ctx.send(embed = embed)
+            await message.add_reaction("✅")
+            await message.add_reaction("❎")
+            await ctx.message.delete()
 
 
 
