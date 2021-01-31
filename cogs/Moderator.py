@@ -33,7 +33,7 @@ class Moderator(commands.Cog):
     @commands.command(name = "ban")
     @commands.has_guild_permissions(ban_members = True)
     async def ban(self, ctx, member: typing.Union[discord.Member, int], *, reason = None):
-        if member == None or reason == None:
+        if member == None:
             await ctx.send("Insufficient arguments!")
         if not isinstance(member, int):
             if ctx.author.top_role.position <= member.top_role.position and ctx.guild.owner.id != ctx.author.id:
@@ -87,6 +87,39 @@ class Moderator(commands.Cog):
             await ctx.guild.unban(member)
 
         await ctx.send(f"Unbanned **{member_str}**")
+
+    @commands.command(name = "mute")
+    @commands.has_guild_permissions(manage_messages = True)
+    async def mute(self, ctx, member : discord.Member, *, reason = None):
+        guild = ctx.guild
+        mutedRole = discord.utils.get(guild.roles, name = "Muted")
+
+        if not mutedRole:
+            mutedRole = await guild.create_role(name = "Muted")
+            await ctx.send("Muted role not found. Creating one now....")
+
+            for channel in guild.channels:
+                await channel.set_permissions(mutedRole, speak = False, send_messages = False)
+
+        await member.add_roles(mutedRole, reason = None)
+        if reason == None:
+            await ctx.send(f"**{member}** has been muted.")
+            await member.send(f"You have been muted in **{guild.name}**.")
+            
+        else:
+            await ctx.send(f"**{member}** has been muted for Reason: **{reason}**")
+            await member.send(f"You have been muted in **{guild.name}**.\nReason: **{reason}**")
+
+    @commands.command(name = "unmute")
+    async def unmute(self, ctx, member : discord.Member):
+        guild = ctx.guild
+        mutedRole = discord.utils.get(guild.roles, name = "Muted")
+
+        await member.remove_roles(mutedRole)
+        await ctx.send(f"**{member}** has been unmuted.")
+        await member.send(f"You have been unmuted from **{guild}**.")
+
+    
    
 
 
