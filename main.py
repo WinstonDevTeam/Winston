@@ -4,6 +4,7 @@ import random
 import os
 import asyncio
 from discord.enums import ActivityType
+from discord.ext.commands import bot
 import praw
 
 from discord.ext import commands, tasks
@@ -18,7 +19,7 @@ client = commands.Bot(command_prefix = "/", case_insensitive = True, intents = i
 
 server_count = len(client.guilds)
 status_a = cycle(["bedwars with Scandlex", "Minecraft", "Survival", "Skywars",])
-status_b = cycle(["Anime", "YouTube", "F1", f"over {server_count} servers"])
+status_b = cycle(["Anime", "YouTube", "F1"])
 
 #Changing Statuses
 
@@ -37,19 +38,21 @@ async def on_ready():
     print("Winston is now Online.")
 client.loop.create_task(status())
 
+supporters = [773893391485370378, 400355889187389450, 400857098121904149, 635019218991054848, 254219520980287489, 733532987794128897]
+
 #Errors
 
 #Logging
 
 @client.event
-async def on_guild_join(ctx, guild):
-    log_channel = client.get_channel("796677487823945728")
-    await log_channel.send(f"Winston joined {guild}./nOwner: {ctx.guild.owner}")
+async def on_guild_join(guild):
+    log_channel = client.get_channel(796677487823945728)
+    await log_channel.send(f"Winston joined {guild}.\nOwner: {guild.owner}")
 
 @client.event
-async def on_guild_remove(ctx, guild):
-    log_channel = client.get_channel("796677487823945728")
-    await log_channel.send(f"Winston left {guild}./nOwner: {guild.owner}")
+async def on_guild_remove(guild):
+    log_channel = client.get_channel(796677487823945728)
+    await log_channel.send(f"Winston left {guild}.\nOwner: {guild.owner}\nOwner ID: {guild.owner.id}")
 
 #Commands
 
@@ -61,7 +64,7 @@ async def ping(ctx):
 @client.command(name = "userinfo", aliases = ["whois"])
 async def user(ctx, *, member : discord.Member = None):
     member = ctx.author if not member else member
-    roles = [role for role in member.roles]
+    roles = [role for role in member.roles if role != ctx.guild.default_role]
     embed = discord.Embed(name = member.name, description = member.mention, color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
     embed.add_field(name = "ID:", value = member.id, inline = False)
     embed.add_field(name = "Joined Discord:", value = member.created_at.strftime("%a, %d %b %Y %I:%M %p"), inline = False)
@@ -93,11 +96,12 @@ async def serverinfo(ctx):
     embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
     await ctx.send(embed = embed)
 
-@client.command(name = "invite", aliases = ["inv"])
+@client.command(name = "invite")
 async def invite(ctx):
-    invite_url = "https://discord.com/api/oauth2/authorize?client_id=792671490151677962&permissions=1006108150&scope=bot"
-    embed = discord.Embed(name = "Click here to invite Winston!", url = invite_url, color = discord.Color.dark_gray())
-    await ctx.send(content = None, embed = embed)
+    invite_url = "https://discord.com/api/oauth2/authorize?client_id=792671490151677962&permissions=8&scope=bot"
+    embed = discord.Embed(
+        title = "Click here to invite Winston!", url = invite_url, color = discord.Color.dark_gray())
+    await ctx.send(embed = embed)
 
 @client.command(name = "support")
 async def support(ctx):
