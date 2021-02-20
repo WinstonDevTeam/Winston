@@ -14,7 +14,7 @@ class Moderator(commands.Cog):
         if amount == None:
             await ctx.send("Please specify a amount of messages to be deleted!")
         await ctx.channel.purge(limit = amount)
-        await ctx.send(f"{amount} message's have been cleared!", delete_after = 3)
+        await ctx.send(f"{amount} message('s) have been cleared!", delete_after = 3)
 
     @commands.command(name = "kick")
     @commands.has_guild_permissions(kick_members = True)
