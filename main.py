@@ -6,9 +6,13 @@ import asyncio
 from discord.enums import ActivityType
 from discord.ext.commands import bot
 import praw
+from dotenv import load_dotenv
 
 from discord.ext import commands, tasks
 from itertools import cycle
+
+#Loading .env
+load_dotenv('.env')
 
 #Intents
 
@@ -114,4 +118,4 @@ for filename in os.listdir("./cogs"):
         client.load_extension(f"cogs.{filename[:-3]}")
         print(f"{filename} has loaded.")
 
-client.run("NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.G-kNm4-KVo9b-Z9alw1OjeNKeD4")
+client.run(os.getenv('TOKEN'))
