@@ -62,12 +62,12 @@ async def on_guild_remove(guild):
 async def invite(ctx):
     invite_url = "https://discord.com/api/oauth2/authorize?client_id=792671490151677962&permissions=8&scope=bot"
     embed = discord.Embed(
-        title = "Click here to invite Winston!", url = xinvite_url, color = discord.Color.dark_gray())
+        title = "Click here to invite Winston!", url = invite_url, color = discord.Color.dark_gray())
     await ctx.send(embed = embed)
 
 @client.command(name = "support")
 async def support(ctx):
-    await ctx.send("Support Server:\nhttps://discord.gg/Cy8UA5va")
+    await ctx.send("Support Server:\nhttps://discord.gg/qM6ZxCzNjN")
     
 #Import cog
 

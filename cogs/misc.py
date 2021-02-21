@@ -41,6 +41,7 @@ class Misc(commands.Cog):
         embed.add_field(name = "Server ID:", value = ctx.guild.id, inline = True)
         embed.add_field(name = "Region:", value = ctx.guild.region, inline = True)
         embed.add_field(name = "Total Members:", value = ctx.guild.member_count, inline = True)
+        embed.set_thumbnail(url = ctx.guild.icon_url)
         await ctx.send(embed = embed)
 
 def setup(client):
