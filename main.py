@@ -86,6 +86,7 @@ async def on_ready():
 client.loop.create_task(status())
 
 supporters = [773893391485370378, 400355889187389450, 400857098121904149, 635019218991054848, 254219520980287489, 733532987794128897]
+THEME = discord.Color.dark_gray()
 
 #Errors
 
@@ -100,48 +101,6 @@ async def on_guild_join(guild):
 async def on_guild_remove(guild):
     log_channel = client.get_channel(796677487823945728)
     await log_channel.send(f"Winston left {guild}.\nOwner: {guild.owner}\nOwner ID: {guild.owner.id}")
-
-#Commands
-
-@client.command(name = "ping")
-async def ping(ctx):
-    embed = discord.Embed(name = "Ping", description = f"The Latency is {round(client.latency * 1000)}ms!", color = discord.Color.dark_gray())
-    await ctx.send(embed = embed)
-
-@client.command(name = "userinfo", aliases = ["whois"])
-async def user(ctx, *, member : discord.Member = None):
-    member = ctx.author if not member else member
-    roles = [role for role in member.roles if role != ctx.guild.default_role]
-    embed = discord.Embed(name = member.name, description = member.mention, color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
-    embed.add_field(name = "ID:", value = member.id, inline = False)
-    embed.add_field(name = "Joined Discord:", value = member.created_at.strftime("%a, %d %b %Y %I:%M %p"), inline = False)
-    embed.add_field(name = "Joined Server:", value = member.joined_at.strftime("%a, %d %b %Y %I:%M %p"), inline = False)
-    embed.add_field(name = "Roles:", value = " ".join([role.mention for role in roles]), inline = False)
-    embed.add_field(name = "Bot:", value = member.bot, inline = False)
-
-    embed.set_thumbnail(url = member.avatar_url)
-    embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
-    await ctx.send(embed = embed)
-
-@client.command(name = "avatar", aliases = ["av"])
-async def avatar(ctx, member : discord.Member = None):
-    member = ctx.author if not member else member
-    embed = discord.Embed(title = f"{member}", color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
-    embed.set_image(url = member.avatar_url)
-    embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
-    await ctx.send(embed = embed)
-
-@client.command(name = "serverinfo", aliases = ["guildinfo"])
-async def serverinfo(ctx):
-    embed = discord.Embed(title = f"{ctx.guild.name} Server Information", description = ctx.guild.description, color = discord.Color.dark_gray(), timestamp = ctx.message.created_at)
-    embed.add_field(name = "Owner:", value = ctx.guild.owner, inline = True)
-    embed.add_field(name = "Server ID:", value = ctx.guild.id, inline = True)
-    embed.add_field(name = "Region:", value = ctx.guild.region, inline = True)
-    embed.add_field(name = "Total Members:", value = ctx.guild.member_count, inline = True)
-    
-    embed.set_thumbnail(url = ctx.guild.icon_url)
-    embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author.name}")
-    await ctx.send(embed = embed)
 
 @client.command(name = "invite")
 async def invite(ctx):
