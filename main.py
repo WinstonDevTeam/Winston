@@ -6,61 +6,16 @@ import asyncio
 from discord.enums import ActivityType
 from discord.ext.commands import bot
 import praw
-import json
 
 from discord.ext import commands, tasks
 from itertools import cycle
 
 token = os.environ["TOKEN"]
 
-#Custom Prefix
-def get_prefix(client, message):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-    
-    return prefixes[str(message.guild.id)]
-
-
 #Intents
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = get_prefix, case_insensitive = True, intents = intents)
-
-
-#Custom prefix
-
-@client.event
-async def on_guild_join(guild):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-
-    prefixes[str(guild.id)] = "/"
-
-    with open('prefixes.json', 'w') as f:
-        json.dump(prefixes, f, indent=4)
-
-@client.event
-async def on_guild_remove(guild):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-
-    prefixes.pop(str(guild.id))
-
-    with open('prefixes.json', 'w') as f:
-        json.dump(prefixes, f, indent=4)
-
-@client.command()
-async def changeprefix(ctx, prefix):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-
-    prefixes[str(ctx.guild.id)] = prefix
-
-    with open('prefixes.json', 'w') as f:
-        json.dump(prefixes, f, indent=4)
-
-    await ctx.send(f"The prefix has been changed to {prefix}")
-
 
 
 #Status Loop
