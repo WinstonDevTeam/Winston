@@ -15,7 +15,7 @@ token = os.environ["TOKEN"]
 #Intents
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
-client = commands.Bot(command_prefix = get_prefix, case_insensitive = True, intents = intents)
+client = commands.Bot(command_prefix = "/", case_insensitive = True, intents = intents)
 
 
 #Status Loop
