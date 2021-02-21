@@ -6,6 +6,7 @@ import asyncio
 from discord.enums import ActivityType
 from discord.ext.commands import bot
 import praw
+import json
 
 from discord.ext import commands, tasks
 from itertools import cycle
