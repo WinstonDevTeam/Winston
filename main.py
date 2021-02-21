@@ -23,7 +23,7 @@ def get_prefix(client, message):
 #Intents
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
-client = commands.Bot(command_prefix = "/", case_insensitive = True, intents = intents)
+client = commands.Bot(command_prefix = prefix, case_insensitive = True, intents = intents)
 
 
 #Custom prefix
