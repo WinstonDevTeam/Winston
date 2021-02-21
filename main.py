@@ -20,8 +20,8 @@ client = commands.Bot(command_prefix = "/", case_insensitive = True, intents = i
 #Status Loop
 
 server_count = len(client.guilds)
-status_a = cycle(["bedwars with Scandlex", "Minecraft", "Survival", "Skywars",])
-status_b = cycle(["Anime", "YouTube", "F1"])
+status_a = cycle(["Bedwars", "Minecraft", "Survival", "Skywars",])
+status_b = cycle(["Anime", "YouTube", "F1", "Attack on Titan"])
 
 async def status():
     while True:
