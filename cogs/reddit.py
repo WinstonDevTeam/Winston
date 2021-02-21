@@ -1,4 +1,3 @@
-from main import THEME
 import discord
 import asyncio
 from discord.ext import commands
@@ -26,7 +25,8 @@ class Reddit(commands.Cog):
 
         if subreddit.over18 and not ctx.channel.is_nsfw():
             nsfw_url = "https://i.imgur.com/oe4iK5i.gif"
-            embed = discord.Embed(title = "Channel is not marked as NSFW!", url = nsfw_url, color = discord.Color.dark_gray())
+            embed = discord.Embed(title = "Channel is not marked as NSFW!", color = discord.Color.dark_gray())
+            embed.set_image(url = nsfw_url)
             await ctx.send(embed = embed)
             return
 
