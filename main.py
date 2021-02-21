@@ -10,6 +10,8 @@ import praw
 from discord.ext import commands, tasks
 from itertools import cycle
 
+token = os.environ["TOKEN"]
+
 #Intents
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
@@ -32,7 +34,6 @@ async def status():
         await asyncio.sleep(10)
 
 supporters = [773893391485370378, 400355889187389450, 400857098121904149, 635019218991054848, 254219520980287489, 733532987794128897]
-TOKEN = "NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.G-kNm4-KVo9b-Z9alw1OjeNKeD4"
 THEME = discord.Color.dark_gray()
 
 @client.event
@@ -68,4 +69,4 @@ for filename in os.listdir("./cogs"):
         client.load_extension(f"cogs.{filename[:-3]}")
         print(f"{filename} has loaded.")
 
-client.run("NzkyNjcxNDkwMTUxNjc3OTYy.X-hG2g.G-kNm4-KVo9b-Z9alw1OjeNKeD4")
+client.run(token)
